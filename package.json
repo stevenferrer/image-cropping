@@ -1,5 +1,5 @@
 {
-  "name": "image-cropper",
+  "name": "image-cropping",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",

@@ -1,5 +1,5 @@
 <template>
-  <h1>Image Cropper</h1>
+  <h1>Image Cropping</h1>
   <Cropper @ready="onReady" />
 </template>
 
