@@ -2,14 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"image"
 	"log"
-	"math"
 	"net/http"
 	"time"
 
-	"github.com/disintegration/imaging"
 	"github.com/go-chi/chi"
+	"github.com/sf9v/croptop"
 )
 
 func main() {
@@ -78,22 +76,15 @@ func crop(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	img, err := imaging.Decode(mpImage)
+	img, err := croptop.Decode(mpImage)
 	if err != nil {
 		log.Printf("error decoding image: %v\n", err)
 		http.Error(w, "internal server error", 500)
 		return
 	}
 
-	width := int(math.Round(opts.Width))
-	height := int(math.Round(opts.Height))
-	offsetX := int(math.Round(opts.X))
-	offsetY := int(math.Round(opts.Y))
-	rect := image.Rect(0, 0, width, height).
-		Add(image.Pt(offsetX, offsetY))
-	img = imaging.Crop(img, rect)
-
-	err = imaging.Encode(w, img, imaging.JPEG)
+	err = img.Height(opts.Height).Width(opts.Width).
+		OffsetX(opts.X).OffsetY(opts.Y).Crop().Encode(w)
 	if err != nil {
 		log.Printf("error encoding image: %v\n", err)
 		http.Error(w, "internal server error", 500)
