@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/go-chi/chi"
 	"github.com/sf9v/croptop"
 )
 
@@ -14,11 +13,6 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("./dist")))
 	mux.HandleFunc("/crop", crop)
-
-	r := chi.NewRouter()
-	fileSrv := http.FileServer(http.Dir("./dist"))
-	r.Method(http.MethodGet, "/", fileSrv)
-	r.Post("/crop", crop)
 
 	addr := ":3002"
 	srv := &http.Server{
@@ -47,6 +41,12 @@ type Opts struct {
 }
 
 func crop(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		status := http.StatusMethodNotAllowed
+		http.Error(w, http.StatusText(status), status)
+		return
+	}
+
 	err := r.ParseMultipartForm(32 << 20)
 	if err != nil {
 		log.Printf("error parsing form: %v\n", err)

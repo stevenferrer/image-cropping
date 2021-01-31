@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Input</p>
+    <h3>Input</h3>
     <input type="file" accept="image/*" @change="fileInputChange" />
     <div class="container">
       <div class="image-container">
@@ -10,7 +10,7 @@
     </div>
     <button type="button" @click="cropImage">Crop</button>
     <div class="image-container">
-      <p>Result</p>
+      <h3>Result</h3>
       <img class="image" :src="resultUrl" />
     </div>
   </div>
