@@ -56,7 +56,7 @@ func crop(w http.ResponseWriter, r *http.Request) {
 
 	mpOpts, _, err := r.FormFile("opts")
 	if err != nil {
-		log.Printf("error getting meta: %v\n", err)
+		log.Printf("error getting opts: %v\n", err)
 		http.Error(w, "internal server error", 500)
 		return
 	}
@@ -71,7 +71,7 @@ func crop(w http.ResponseWriter, r *http.Request) {
 
 	mpImage, _, err := r.FormFile("image")
 	if err != nil {
-		log.Printf("error getting meta: %v\n", err)
+		log.Printf("error getting image: %v\n", err)
 		http.Error(w, "internal server error", 500)
 		return
 	}
