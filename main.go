@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/sf9v/croptop"
+	"github.com/stevenferrer/croptop"
 )
 
 func main() {
